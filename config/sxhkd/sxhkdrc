@@ -1,0 +1,9 @@
+super + Return
+    $TERMINAL
+
+super + w
+    $BROWSER
+
+super + d
+    dmenu_run
+

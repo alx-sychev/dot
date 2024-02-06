@@ -1,0 +1,11 @@
+#/bin/sh
+
+DEVICE=wlan0
+SSID=TP-Link_8A42
+
+echo "Scaning..."
+iwctl station $DEVICE scan
+
+echo "Connecting to $SSID..."
+iwctl station $DEVICE connect $SSID
+
