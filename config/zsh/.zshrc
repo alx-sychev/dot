@@ -1,4 +1,4 @@
-# plugins
+# @plugins
 
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -19,9 +19,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 
-# opts
+# @opts
 
-HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
@@ -30,19 +29,20 @@ unsetopt beep
 bindkey -v
 
 
-# fzf
+# @fzf
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
 
-# aliases
+# @aliases
 
 alias c="clear"
 alias x="exit"
 
 alias v="nvim"
 
+alias l1="ls -1"
 alias la="ls -a"
 alias ll="ls -la"
 alias md="mkdir -p"
