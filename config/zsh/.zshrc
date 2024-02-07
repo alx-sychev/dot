@@ -1,13 +1,12 @@
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+# plugins
 
-setopt notify
-unsetopt beep
-bindkey -v
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="robbyrussell"
 
 plugins=(
-#  git
+  git
+  asdf
 #  fzf-zsh-plugin
 #  zsh-syntax-highlighting
 #  vi-mode
@@ -17,7 +16,27 @@ plugins=(
 #  kubectl
 )
 
-# source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
+
+
+# opts
+
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+
+setopt notify
+unsetopt beep
+bindkey -v
+
+
+# fzf
+
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
+
+# aliases
 
 alias c="clear"
 alias x="exit"

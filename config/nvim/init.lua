@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 
--- install plugin manager
+-- @install plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -14,41 +14,47 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- plugins
+-- @plugins
 require("lazy").setup({
-    "wbthomason/packer.nvim",
-    {
-        "nvim-telescope/telescope.nvim",
-        dependencies = { {'nvim-lua/plenary.nvim'} },
-    },
-    'neovim/nvim-lspconfig',
+    -- completion
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-nvim-lsp",
+
+    -- lsp
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+
+    -- themes
+    "ellisonleao/gruvbox.nvim",
+
+    -- other
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = { {'nvim-lua/plenary.nvim'} },
+    },
+    "terrortylor/nvim-comment",
     {
         "aserowy/tmux.nvim",
         config = function() return require("tmux").setup() end,
     },
-    "ellisonleao/gruvbox.nvim",
-    "terrortylor/nvim-comment",
 })
 
-local telescopeBuiltin = require("telescope.builtin")
-
--- utils
-function kn(...) vim.keymap.set("n", unpack({...})) end
-function kv(...) vim.keymap.set("v", unpack({...})) end
-function knv(...)
+-- @utils
+local function kn(...) vim.keymap.set("n", unpack({...})) end
+local function kv(...) vim.keymap.set("v", unpack({...})) end
+local function knv(...)
     kn(unpack({...}))
     kv(unpack({...}))
 end
-function t(command) return "<cmd>Telescope " .. command .. " <CR>" end
+local function t(command) return "<cmd>Telescope " .. command .. " <CR>" end
 
--- open vim config
-kn("<leader>C", ":e ~/.config/nvim<cr>")
+-- @open vim config
+kn("<leader>C", ":e ~/.config/nvim/init.lua<CR>")
 
--- buffer navigaion
+-- @buffer navigaion
 -- stay on center during navigation
 kn("<C-d>", "<C-d>zz")
 kn("<C-u>", "<C-u>zz")
@@ -56,7 +62,7 @@ kn("n", "nzz")
 kn("N", "Nzz")
 kn("G", "Gzz")
 
--- splits
+-- @splits
 -- create
 kn("<leader>v", ':vsp <CR>', { silent = true })
 -- navigate
@@ -70,31 +76,32 @@ kn("<C-A-h>", '<C-w>10<')
 kn("<C-A-j>", '<C-w>5+')
 kn("<C-A-k>", '<C-w>5-')
 
--- buffer search
-vim.keymap.set('n', '<leader>s', function()
-	telescopeBuiltin.current_buffer_fuzzy_find(
+-- @buffer search
+local buffer_search = function()
+	require("telescope.builtin").current_buffer_fuzzy_find(
         require('telescope.themes').get_dropdown {
             winblend = 0, -- transparency
             previewer = false,
         }
     )
-end)
+end
+kn('<leader>s', buffer_search)
 
--- files navigation and search
+-- @files navigation and search
 -- directory view
-kn("<leader>fl", telescopeBuiltin.find_files, {})
+kn("<leader>fl", t("find_files"), {})
 -- all not ignored files
-kn("<leader>ff", telescopeBuiltin.git_files, {})
+kn("<leader>ff", t("git_files"), {})
 -- recent files
-kn("<leader>fr", telescopeBuiltin.oldfiles, {})
+kn("<leader>fr", t("oldfiles"), {})
 -- grep
-kn("<leader>fg", telescopeBuiltin.live_grep, {})
+kn("<leader>fg", t("live_grep"), {})
 -- edited files
 kn("<leader>fe", t("git_status"))
 -- open last closed file
 kn("<leader><leader>", ':e#\n', { silent = true })
 
--- autocomplete
+-- @autocomplete
 local cmp = require "cmp"
 cmp.setup {
     mapping = {
@@ -119,14 +126,85 @@ cmp.setup {
     },
 }
 
--- comment
+-- @comment
 require('nvim_comment').setup()
 knv("<leader>/", ":CommentToggle<CR>", { silent = true })
 
--- lsp
-require("lsp")
+-- @lua ls on init
+local lua_ls_on_init = function(client)
+    local path = client.workspace_folders[1].name
 
--- telescope
+    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+        client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+            Lua = {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using
+                    -- (most likely LuaJIT in the case of Neovim)
+                    version = 'LuaJIT'
+                },
+                -- Make the server aware of Neovim runtime files
+                workspace = {
+                    checkThirdParty = false,
+                    library = {
+                        vim.env.VIMRUNTIME
+                        -- "${3rd}/luv/library"
+                        -- "${3rd}/busted/library",
+                    }
+                    -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                    -- library = vim.api.nvim_get_runtime_file("", true)
+                }
+            }
+        })
+
+        client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+
+    return true
+end
+
+-- @lsp on attach
+local lsp_on_attach = function(client)
+    kn("K", vim.lsp.buf.hover, {buffer=0})
+
+    kn("gr", t("lsp_references"), {buffer=0})
+    kn("gd", vim.lsp.buf.definition, {buffer=0})
+    kn("gt", vim.lsp.buf.type_definition, {buffer=0})
+    kn("gi", vim.lsp.buf.implementation, {buffer=0})
+
+    kn("<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", {buffer=0})
+    kn("<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", {buffer=0})
+
+    kn("<leader>dn", vim.diagnostic.goto_next, {buffer=0})
+    kn("<leader>dp", vim.diagnostic.goto_prev, {buffer=0})
+    kn("<leader>dl", "<cmd>Telescope diagnostics<cr>", {buffer=0})
+
+    kn("<leader>r", vim.lsp.buf.rename, {buffer=0})
+    kn("<leader>a", vim.lsp.buf.code_action, {buffer=0})
+end
+
+-- @lsp
+require("mason").setup()
+require("mason-lspconfig").setup {
+    automatic_installation = true,
+    ensure_installed = {
+        "lua_ls",
+    }
+}
+require("mason-lspconfig").setup_handlers {
+    function (server_name) -- default handler
+        require("lspconfig")[server_name].setup {
+            on_attach = lsp_on_attach,
+        }
+    end,
+    ["lua_ls"] = function ()
+        require("lspconfig").lua_ls.setup {
+            on_attach = lsp_on_attach,
+            on_init = lua_ls_on_init,
+        }
+    end,
+}
+
+-- @telescope
 local telescope = require 'telescope'
 telescope.setup {
     defaults = {
@@ -138,10 +216,10 @@ telescope.setup {
     },
 }
 
--- vim help
+-- @help
 kn("<leader>h", '<cmd>Telescope help_tags<CR>')
 
--- git
+-- @git
 -- gl - git log
 kn("<leader>gla", ':Telescope git_commits <CR>')
 -- glb - git log for current file
@@ -149,11 +227,11 @@ kn("<leader>glf", ':Telescope git_bcommits <CR>')
 -- gb - git branch
 kn("<leader>gb", ':Telescope git_branches <CR>')
 
--- colorscheme
+-- @colorscheme
 vim.o.background = "dark"
 vim.cmd([[colorscheme gruvbox]])
 
--- opts
+-- @opts
 vim.opt.nu = true
 vim.opt.relativenumber = false
 vim.opt.tabstop = 4

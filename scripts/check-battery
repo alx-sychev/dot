@@ -1,6 +1,0 @@
-#!/bin/sh
-
-BATTERY=BAT0
-
-cat /sys/class/power_supply/$BATTERY/capacity
-
