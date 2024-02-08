@@ -1,9 +1,21 @@
+super + shift + q
+    killall xinit
+
 super + Return
-    $TERMINAL
+    $TERMINAL -e tmux
 
 super + w
     $BROWSER
 
 super + d
     dmenu_run
+
+super + t
+    telegram-desktop
+
+super + F1
+    dmenu-bluetooth
+
+Print
+    sshot
 

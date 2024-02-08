@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# WIP
+SCREENSHOT_DIR="~/px/sh"
+
+# maim "$SCREENSHOT_DIR/$(date +%F-%T).png"
+maim -s | xclip -selection clipboard -t image/png
+
