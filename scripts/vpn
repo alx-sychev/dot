@@ -16,5 +16,7 @@ down() {
     pritunl-client stop "$(get_first)"
 }
 
-$1
+subcmd=${1:-status}
+
+$subcmd
 
