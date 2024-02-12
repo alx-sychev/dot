@@ -1,8 +1,13 @@
+# exit X session
 super + shift + q
     killall xinit
 
+# lock X session
+super + l
+    slock
+
 super + Return
-    $TERMINAL -e tmux
+    $TERMINAL
 
 super + w
     $BROWSER
@@ -13,9 +18,14 @@ super + d
 super + t
     telegram-desktop
 
-super + F1
-    dmenu-bluetooth
+super + c
+    $TERMINAL -e calcurse
 
+# bluetooth menu
+super + F1
+    dbluez
+
+# make screenshot
 Print
     sshot
 

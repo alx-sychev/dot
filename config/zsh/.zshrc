@@ -1,5 +1,3 @@
-# @plugins
-
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="robbyrussell"
@@ -45,5 +43,12 @@ alias v="nvim"
 alias l1="ls -1"
 alias la="ls -a"
 alias ll="ls -la"
+alias lll="ls -l"
+
 alias md="mkdir -p"
+alias cp="cp -r"
+
+m() {
+    man $1 || $1 --help | less
+}
 

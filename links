@@ -6,6 +6,7 @@ $DOTFILES/config/tmux/.tmux.conf ~/.tmux.conf
 $DOTFILES/config/X/.xinitrc ~/.xinitrc 
 $DOTFILES/config/X/.Xresources ~/.Xresources 
 $DOTFILES/config/X/.Xmodmap ~/.Xmodmap 
+$DOTFILES/config/picom ~/.config/picom 
 
 $DOTFILES/config/nvim ~/.config/nvim
 $DOTFILES/config/sxhkd ~/.config/sxhkd

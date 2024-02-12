@@ -1,0 +1,20 @@
+#!/bin/sh
+
+get_first() {
+    pritunl-client list -j | jq '.[0].id' -r
+}
+
+status() {
+    pritunl-client list -j | jq '.'
+}
+
+up() {
+    pritunl-client start "$(get_first)"
+}
+
+down() {
+    pritunl-client stop "$(get_first)"
+}
+
+$1
+

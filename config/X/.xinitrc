@@ -4,5 +4,8 @@ slstatus &
 picom -b
 xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
+colwarm
+# xautolock -time 5 -locker slock &
+wifi TP-Link_8A42
 
 exec dwm

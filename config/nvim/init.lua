@@ -87,9 +87,15 @@ local buffer_search = function()
 end
 kn('<leader>s', buffer_search)
 
+-- @netrw
+vim.g.netrw_winsize = 70 -- width when open file in vsplit
+vim.g.netrw_liststyle = 3 -- tree list style
+vim.g.netrw_banner = 0 -- hide banner
+vim.g.netrw_localcopydircmd = "cp -r" -- copy dir
+
 -- @files navigation and search
 -- directory view
-kn("<leader>fl", t("find_files"), {})
+kn("<leader>fl", ":Ex<CR>", {})
 -- all not ignored files
 kn("<leader>ff", t("git_files"), {})
 -- recent files
@@ -188,6 +194,8 @@ require("mason-lspconfig").setup {
     automatic_installation = true,
     ensure_installed = {
         "lua_ls",
+        "bashls",
+        "phpactor",
     }
 }
 require("mason-lspconfig").setup_handlers {

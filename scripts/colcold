@@ -1,0 +1,4 @@
+#!/bin/sh
+
+redshift -P -O 5500
+
