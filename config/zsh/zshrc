@@ -43,6 +43,8 @@ fzf_open() {
 }
 bindkey -s "^[v" "fzf_open^M"
 bindkey -s "^[t" "\$EDITOR ~/tasks^M"
+bindkey -s "^[h" "cd ~/^M"
+bindkey -s "^[f" "lf^M"
 
 
 # @aliases
