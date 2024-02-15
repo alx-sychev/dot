@@ -29,8 +29,20 @@ bindkey -v
 
 # @fzf
 
-source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
+
+
+# @key bindings
+
+source /usr/share/fzf/key-bindings.zsh
+fzf_open() {
+    file="$(fzf)"
+    if [ -n "$file" ]; then
+        $EDITOR "$file"
+    fi
+}
+bindkey -s "^[v" "fzf_open^M"
+bindkey -s "^[t" "\$EDITOR ~/tasks^M"
 
 
 # @aliases
