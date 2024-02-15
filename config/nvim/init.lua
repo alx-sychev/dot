@@ -196,6 +196,7 @@ require("mason-lspconfig").setup {
         "lua_ls",
         "bashls",
         "phpactor",
+        "gopls",
     }
 }
 require("mason-lspconfig").setup_handlers {

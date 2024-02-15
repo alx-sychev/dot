@@ -16,6 +16,10 @@ down() {
     pritunl-client stop "$(get_first)"
 }
 
+slstatus() {
+    status | jq -r '.[0].run_state'
+}
+
 subcmd=${1:-status}
 
 $subcmd

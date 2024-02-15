@@ -1,0 +1,5 @@
+#!/bin/sh
+
+tmp="/tmp/json.beautify.tmp"
+python -m json.tool $1 > $tmp && cp $tmp $1
+
