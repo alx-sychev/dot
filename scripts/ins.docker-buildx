@@ -1,0 +1,15 @@
+#!/bin/sh
+
+version=0.12.1
+platform=linux-amd64
+
+url=https://github.com/docker/buildx/releases/download/v$version/buildx-v$version.$platform
+
+binary_name=docker-buildx
+dest_dir=$HOME/.docker/cli-plugins
+dest_file=$dest_dir/$binary_name
+
+curl -Lo $dest_file --create-dirs $url
+
+chmod +x $dest_file
+

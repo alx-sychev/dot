@@ -40,6 +40,12 @@ require("lazy").setup({
         "aserowy/tmux.nvim",
         config = function() return require("tmux").setup() end,
     },
+    "f-person/git-blame.nvim",
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
 })
 
 -- @utils
@@ -75,6 +81,19 @@ kn("<C-A-l>", '<C-w>10>')
 kn("<C-A-h>", '<C-w>10<')
 kn("<C-A-j>", '<C-w>5+')
 kn("<C-A-k>", '<C-w>5-')
+
+-- @harpoon
+local harpoon = require("harpoon")
+harpoon:setup()
+kn("<leader>e", function() harpoon:list():append() end)
+kn("<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+kn("<A-j>", function() harpoon:list():select(1) end)
+kn("<A-k>", function() harpoon:list():select(2) end)
+kn("<A-l>", function() harpoon:list():select(3) end)
+kn("<A-h>", function() harpoon:list():select(4) end)
+-- Toggle previous & next buffers stored within Harpoon list
+kn("<A-p>", function() harpoon:list():prev() end)
+kn("<A-n>", function() harpoon:list():next() end)
 
 -- @buffer search
 local buffer_search = function()
@@ -229,12 +248,10 @@ telescope.setup {
 kn("<leader>h", '<cmd>Telescope help_tags<CR>')
 
 -- @git
--- gl - git log
-kn("<leader>gla", ':Telescope git_commits <CR>')
--- glb - git log for current file
-kn("<leader>glf", ':Telescope git_bcommits <CR>')
--- gb - git branch
-kn("<leader>gb", ':Telescope git_branches <CR>')
+-- git blame
+require('gitblame').setup {
+    enabled = true,
+}
 
 -- @colorscheme
 vim.o.background = "dark"

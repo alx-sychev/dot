@@ -1,0 +1,6 @@
+#!/bin/sh
+
+fzf --preview 'bat --style=numbers --color=always {}' \
+    --print0 | \
+    xargs -0 -r open
+

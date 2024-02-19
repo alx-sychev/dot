@@ -3,7 +3,7 @@ super + shift + q
     killall xinit
 
 # lock X session
-super + l
+super + shift + l
     slock
 
 super + Return

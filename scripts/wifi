@@ -6,5 +6,5 @@ SSID=$1
 echo "device: $DEVICE, connecting to: $SSID"
 
 iwctl station $DEVICE scan
-iwctl station $DEVICE connect $SSID
+iwctl station $DEVICE connect "$SSID"
 

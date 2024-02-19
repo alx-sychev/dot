@@ -1,4 +1,6 @@
 #!/bin/sh
 
-sed '/^#.*/d; /^$/d' $DOTFILES/links | awk '{print "ln -sf -T ", $1, $2}' | /bin/sh
+sed '/^#.*/d; /^$/d' $DOTFILES/links | \
+    awk '{print "ln -sf -T ", $1, $2}' | \
+    /bin/sh
 
