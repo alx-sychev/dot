@@ -30,6 +30,26 @@ require("lazy").setup({
     -- themes
     "ellisonleao/gruvbox.nvim",
 
+    -- file tree
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        }
+    },
+
+    -- phpactor
+    {
+        "gbprod/phpactor.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim", -- required to update phpactor
+            "neovim/nvim-lspconfig" -- required to automaticly register lsp serveur
+        },
+    },
+
     -- other
     {
         "nvim-telescope/telescope.nvim",
@@ -82,6 +102,13 @@ kn("<C-A-h>", '<C-w>10<')
 kn("<C-A-j>", '<C-w>5+')
 kn("<C-A-k>", '<C-w>5-')
 
+-- @phpactor
+require("phpactor").setup {
+    install = {
+        bin = vim.fn.stdpath("data") .. "/mason/packages/phpactor/bin/phpactor",
+    },
+}
+
 -- @harpoon
 local harpoon = require("harpoon")
 harpoon:setup()
@@ -104,7 +131,7 @@ local buffer_search = function()
         }
     )
 end
-kn('<leader>s', buffer_search)
+kn('<leader>S', buffer_search)
 
 -- @netrw
 vim.g.netrw_winsize = 70 -- width when open file in vsplit
@@ -112,17 +139,35 @@ vim.g.netrw_liststyle = 3 -- tree list style
 vim.g.netrw_banner = 0 -- hide banner
 vim.g.netrw_localcopydircmd = "cp -r" -- copy dir
 
+-- @file tree
+require('neo-tree').setup {
+    close_if_last_window = true,
+    default_component_configs = {
+        last_modified = { enabled = false },
+        created = { enabled = false },
+        symlink_target = { enabled = true },
+    },
+    window = {
+        width = 35,
+        mappings = {
+            ["l"] = "open",
+            ["h"] = "close_node",
+        },
+    },
+}
+
 -- @files navigation and search
 -- directory view
-kn("<leader>fl", ":Ex<CR>", {})
+kn("<leader>fd", ":Neotree toggle<cr>", {})
 -- all not ignored files
 kn("<leader>ff", t("git_files"), {})
 -- recent files
 kn("<leader>fr", t("oldfiles"), {})
 -- grep
-kn("<leader>fg", t("live_grep"), {})
+kn("<leader>g", t("live_grep"), {})
 -- edited files
-kn("<leader>fe", t("git_status"))
+-- kn("<leader>fe", t("git_status"))
+kn("<leader>fe", ":Neotree toggle source=git_status<cr>")
 -- open last closed file
 kn("<leader><leader>", ':e#\n', { silent = true })
 
@@ -196,8 +241,8 @@ local lsp_on_attach = function(client)
     kn("gt", vim.lsp.buf.type_definition, {buffer=0})
     kn("gi", vim.lsp.buf.implementation, {buffer=0})
 
-    kn("<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", {buffer=0})
-    kn("<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", {buffer=0})
+    kn("<leader>s", "<cmd>Telescope lsp_document_symbols<cr>", {buffer=0})
+    -- kn("<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", {buffer=0})
 
     kn("<leader>dn", vim.diagnostic.goto_next, {buffer=0})
     kn("<leader>dp", vim.diagnostic.goto_prev, {buffer=0})
@@ -216,6 +261,7 @@ require("mason-lspconfig").setup {
         "bashls",
         "phpactor",
         "gopls",
+        "pyright",
     }
 }
 require("mason-lspconfig").setup_handlers {
