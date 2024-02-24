@@ -7,6 +7,6 @@ xmodmap ~/.Xmodmap
 colwarm
 # xautolock -time 5 -locker slock &
 wifi TP-Link_8A42
-xwallpaper --center ~/.config/wall.jpg
+xwallpaper --center ~/.config/wall.png
 
 exec dwm

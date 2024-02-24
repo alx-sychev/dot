@@ -1,5 +1,8 @@
 #!/bin/sh
 
+dir="${1:-$HOME}"
+
+cd $dir
 fzf --preview 'bat --style=numbers --color=always {}' \
     --print0 | \
     xargs -0 -r open

@@ -4,9 +4,8 @@ qmk_path=$HOME/qmk_firmware
 qmk_user=alx-sychev
 
 link() {
-    ln -s $1 -T $2
+    ln -sf $1 -T $2
 }
 
 link $DOTFILES/qmk/keyboards/sofle $qmk_path/keyboards/sofle/keymaps/$qmk_user
-link $DOTFILES/qmk/userspace $qmk_path/users/$qmk_user
 

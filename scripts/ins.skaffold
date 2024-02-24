@@ -1,0 +1,8 @@
+#!/bin/bash
+
+version=1.23.0
+
+curl -Lo skaffold "https://storage.googleapis.com/skaffold/releases/v$version/skaffold-linux-amd64"
+chmod +x skaffold
+sudo mv skaffold /usr/local/bin
+

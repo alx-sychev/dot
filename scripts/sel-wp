@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DEST_PATH="$HOME/.config/wall.png"
+WP_PATH="$HOME/px/wp"
+
+img="$(sxiv -qro $WP_PATH | head -n 1)"
+
+if ! [ -z $img ]; then
+    cp $img $DEST_PATH
+    xwallpaper --center $DEST_PATH
+fi
+

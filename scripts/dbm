@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# dbm means dmenu bookmarks
+
+FILE_PATH="$HOME/.bookmarks"
+DMENU_CMD="dmenu -l 20"
+
+PROMPT_SELECT_FOLDER="Select folder (empty for root): "
+PROMPT_ENTER_NAME="Enter name: "
+
+open() {
+	setsid -f $BROWSER $1 >/dev/null 2>&1
+}
+
+edit() {
+    $EDITOR $FILE_PATH
+}
+
+select_folder() {
+    cat $FILE_PATH | sed 's/.*#\s*//' | sed 's/\/.*$//' | uniq | \
+        $DMENU_CMD -p "$PROMPT_SELECT_FOLDER"
+}
+
+pick() {
+    local name=$(cat $FILE_PATH | sed 's/.*#\s*//' | $DMENU_CMD)
+
+    if ! [ -z $name ]; then
+        local url=$(cat $FILE_PATH | grep "$name" | head -n 1 | sed 's/\s#.*//')
+        open $url
+    fi
+}
+
+add() {
+    local url=$(xclip -o)
+
+    if ! [ -z $url ]; then
+        folder="$(select_folder)"
+
+        local name=$(echo "" | $DMENU_CMD -p "$PROMPT_ENTER_NAME")
+
+        if ! [ -z $folder ]; then
+            name="$folder/$name"
+        fi
+
+        if ! [ -z $name ]; then
+            echo "$url # $name" >> $FILE_PATH
+        fi
+    fi
+}
+
+init_storage() {
+    if ! [ -f $FILE_PATH ]; then
+        regex="(.*)/[^/]*"
+
+        if [[ $FILE_PATH =~ $regex ]]; then
+            mkdir -p "${BASH_REMATCH[1]}"
+        else
+            echo "fatal: can not create file at $FILE_PATH"
+            exit 1
+        fi
+
+        touch $FILE_PATH
+    fi
+}
+
+init_storage
+
+case "$1" in
+edit) edit;;
+print) cat $FILE_PATH;;
+pick) pick;;
+add) add;;
+*) 
+$(echo "pick
+add
+edit
+print" | $DMENU_CMD);;
+esac
+

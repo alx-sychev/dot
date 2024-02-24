@@ -25,6 +25,12 @@ super + c
 super + F1
     dbluez
 
+# bookmarks
+# super + n
+#     dbm pick
+# super + a
+#     dbm add
+
 # make screenshot
 Print
     sshot

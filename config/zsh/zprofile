@@ -1,4 +1,4 @@
-export DOTFILES=$HOME/dot
+export DOTFILES=$HOME/dt
 
 export EDITOR=nvim
 export TERMINAL=st

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd $DOTFILES/scripts
+echo "#!/bin/sh\n\n\n" >> ./$1
+chmod +x ./$1
+$EDITOR $1
+
