@@ -29,10 +29,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [NAV] = layout42(
-    QK_BOOT, _,       _,       LT(MOUSE, _), LT(MEDIA, _), _,                     RCS(KC_TAB), _,          _,        C(KC_TAB), _,      _, 
-    KC_LCTL, KC_LGUI, KC_LALT, KC_LCTL,      KC_LSFT,      KC_APP,                KC_LEFT,     KC_DOWN,    KC_UP,    KC_RGHT,   _,      _,
-    KC_LSFT, U_UND,   U_CUT,   U_CPY,        U_PST,        U_RDO,                 KC_HOME,     KC_PGDN,    KC_PGUP,  KC_END,    KC_INS, _,
-                               _,            _,            _,                     KC_ENT,      C(KC_BSPC), C(KC_DEL)
+    QK_BOOT, _,       _,       _,       _,       _,                     RCS(KC_TAB), _,          _,        C(KC_TAB), _,      _, 
+    KC_LCTL, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_APP,                KC_LEFT,     KC_DOWN,    KC_UP,    KC_RGHT,   _,      _,
+    KC_LSFT, U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO,                 KC_HOME,     KC_PGDN,    KC_PGUP,  KC_END,    KC_INS, _,
+                               _,       _,       _,                     KC_ENT,      C(KC_BSPC), C(KC_DEL)
   ),
 
   [MOUSE] = layout42(
