@@ -296,7 +296,7 @@ kn("<leader>h", '<cmd>Telescope help_tags<CR>')
 -- @git
 -- git blame
 require('gitblame').setup {
-    enabled = true,
+    enabled = false,
 }
 
 -- @colorscheme

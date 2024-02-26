@@ -16,9 +16,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-
-# @opts
-
 HISTSIZE=1000
 SAVEHIST=1000
 
@@ -26,41 +23,9 @@ setopt notify
 unsetopt beep
 bindkey -v
 
-
-# @fzf
-
 source /usr/share/fzf/completion.zsh
-
-
-# @key bindings
-
 source /usr/share/fzf/key-bindings.zsh
 bindkey -s "^[v" "fzf-open^M"
-bindkey -s "^[t" "\$EDITOR ~/tasks^M"
 
-
-# @aliases
-
-alias c="clear"
-alias x="exit"
-
-alias v="nvim"
-
-alias l1="ls -1"
-alias la="ls -a"
-alias ll="ls -la"
-alias lll="ls -l"
-
-alias md="mkdir -p"
-alias cp="cp -r"
-
-alias ns="newscript"
-
-alias de="fzf-open $DOTFILES"
-alias ce="fzf-open $DOTFILES/config"
-alias se="fzf-open $DOTFILES/scripts"
-
-m() {
-    man $1 || $1 --help | less
-}
+source "$DOTFILES/config/zsh/aliases"
 

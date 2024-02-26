@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dir="${1:-$HOME}"
+dir="${1:-.}"
 
 cd $dir
 fzf --preview 'bat --style=numbers --color=always {}' \

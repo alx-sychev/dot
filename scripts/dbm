@@ -8,12 +8,12 @@ DMENU_CMD="dmenu -l 20"
 PROMPT_SELECT_FOLDER="Select folder (empty for root): "
 PROMPT_ENTER_NAME="Enter name: "
 
-open() {
+open_in_browser() {
 	setsid -f $BROWSER $1 >/dev/null 2>&1
 }
 
 edit() {
-    $EDITOR $FILE_PATH
+    $TERMINAL -e $EDITOR $FILE_PATH
 }
 
 select_folder() {
@@ -21,12 +21,12 @@ select_folder() {
         $DMENU_CMD -p "$PROMPT_SELECT_FOLDER"
 }
 
-pick() {
+open() {
     local name=$(cat $FILE_PATH | sed 's/.*#\s*//' | $DMENU_CMD)
 
     if ! [ -z $name ]; then
         local url=$(cat $FILE_PATH | grep "$name" | head -n 1 | sed 's/\s#.*//')
-        open $url
+        open_in_browser $url
     fi
 }
 
@@ -68,10 +68,10 @@ init_storage
 case "$1" in
 edit) edit;;
 print) cat $FILE_PATH;;
-pick) pick;;
+open) open;;
 add) add;;
 *) 
-$(echo "pick
+$(echo "open
 add
 edit
 print" | $DMENU_CMD);;

@@ -1,0 +1,28 @@
+alias ae="$EDITOR $DOTFILES/config/zsh/aliases"
+alias fo="fzf-open"
+alias de="fzf-open $DOTFILES"
+alias ce="fzf-open $DOTFILES/config"
+alias se="fzf-open $DOTFILES/scripts"
+
+alias te="$EDITOR ~/dx/tasks"
+alias ns="newscript"
+
+alias v="nvim"
+
+alias md="mkdir -p"
+alias cp="cp -r"
+
+t1() { tree -L 1 $1 | less; }
+t2() { tree -L 2 $1 | less; }
+t3() { tree -L 3 $1 | less; }
+
+alias l1="ls -1"
+alias la="ls -a"
+alias ll="ls -la"
+alias lll="ls -l"
+
+m() { man $1 || $1 --help | less; }
+
+alias c="clear"
+alias x="exit"
+

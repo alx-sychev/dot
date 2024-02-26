@@ -1,0 +1,68 @@
+#!/bin/sh
+
+SAVE_PATH="$HOME/px/sh"
+SAVE_DATE_FORMAT="%Y-%m-%d-%H:%M:%S"
+
+help="sss - simple screenshoter
+Options:
+    -c copy to clipboard
+    -s save
+    -u upload
+    -a annotate
+    -h show help"
+
+show_help() {
+    echo "$help"
+}
+
+copy_to_clipboard() {
+    cat tmpfile | xclip -selection clipboard -t image/png
+    notify-send "Screenshot" "Screenshot copied to clipboard"
+}
+
+save() {
+    local path="$SAVE_PATH/$(date +$SAVE_DATE_FORMAT)"
+    cp tmpfile $path
+    notify-send "Screenshot saved" "$path"
+}
+
+upload() {
+    # todo
+    notify-send "Screenshot" "Upload is not implemented"
+}
+
+annotate() {
+    # todo
+    notify-send "Screenshot" "Annotate is not implemented"
+}
+
+main() {
+    tmpfile=$(mktemp)
+
+    maim -s > tmpfile
+
+    [ $copy -gt 0 ] && copy_to_clipboard
+    [ $save -gt 0 ] && save
+    # [ $upload -gt 0 ] && upload
+    # [ $annotate -gt 0 ] && annotate
+
+    rm tmpfile
+}
+
+copy=0
+save=0
+upload=0
+annotate=0
+
+while getopts ":hcsua" option; do
+    case $option in
+        h) show_help && exit 0 ;;
+        c) copy=1 ;;
+        s) save=1 ;;
+        u) upload=1 ;;
+        a) annotate=1 ;;
+    esac
+done
+
+main
+

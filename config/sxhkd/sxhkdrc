@@ -33,5 +33,5 @@ super + F1
 
 # make screenshot
 Print
-    sshot
+    sss -sc
 

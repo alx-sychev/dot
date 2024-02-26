@@ -1,6 +1,0 @@
-#!/bin/bash
-
-SCREENSHOT_DIR="~/px/sh"
-
-maim -s | xclip -selection clipboard -t image/png
-
