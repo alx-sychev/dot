@@ -2,7 +2,7 @@
 
 # dbm means dmenu bookmarks
 
-FILE_PATH="$HOME/.bookmarks"
+FILE_PATH="$XDG_DATA_HOME/dbm/bookmarks"
 DMENU_CMD="dmenu -l 20"
 
 PROMPT_SELECT_FOLDER="Select folder (empty for root): "

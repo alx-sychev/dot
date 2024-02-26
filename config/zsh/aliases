@@ -12,6 +12,9 @@ alias v="nvim"
 alias md="mkdir -p"
 alias cp="cp -r"
 
+dus() { du -hd 1 $1 | sort -hr }
+dus2() { du -hd 2 $1 | sort -hr }
+
 t1() { tree -L 1 $1 | less; }
 t2() { tree -L 2 $1 | less; }
 t3() { tree -L 3 $1 | less; }

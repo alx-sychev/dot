@@ -1,0 +1,17 @@
+set anchorfind false
+set cleaner '~/.config/lf/cleaner'
+set previewer '~/.config/lf/scope'
+
+cmd open ${{
+    $OPENER "$f"
+}}
+
+cmd md ${{
+    mkdir -p "$1"
+}}
+
+map D delete
+map gh cd ~
+map a push $touch<space>
+map w $setwp "$f"
+

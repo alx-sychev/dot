@@ -15,12 +15,6 @@ super + w
 super + d
     dmenu_run
 
-super + t
-    telegram-desktop
-
-super + c
-    $TERMINAL -e calcurse
-
 # bluetooth menu
 super + F1
     dbluez

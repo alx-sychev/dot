@@ -1,12 +1,13 @@
 setxkbmap "us,ru" -option grp:alt_shift_toggle
 sxhkd &
 slstatus &
+dunst &
 picom -b
 xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
 colwarm
-# xautolock -time 5 -locker slock &
 wifi TP-Link_8A42
 xwallpaper --center ~/.config/wall.png
+configure-monitors
 
 exec dwm

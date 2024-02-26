@@ -1,0 +1,6 @@
+#!/bin/sh
+
+DEST_PATH="$HOME/.config/wall.png"
+cp "$1" $DEST_PATH
+xwallpaper --maximize $DEST_PATH
+
