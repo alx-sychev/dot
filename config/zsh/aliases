@@ -1,3 +1,9 @@
+# exam
+alias bi="./backend init -n"
+alias br="./backend run --dev &"
+alias bt="./backend test --modificators"
+alias be="./backend exec"
+
 alias ae="$EDITOR $DOTFILES/config/zsh/aliases"
 alias fo="fzf-open"
 alias de="fzf-open $DOTFILES"
@@ -12,18 +18,22 @@ alias v="nvim"
 alias md="mkdir -p"
 alias cp="cp -r"
 
-dus() { du -hd 1 $1 | sort -hr }
-dus2() { du -hd 2 $1 | sort -hr }
+# disk usage
+dus() { du -hd 1 $1 | sort -hr | less }
+dus2() { du -hd 2 $1 | sort -hr | less }
 
-t1() { tree -L 1 $1 | less; }
-t2() { tree -L 2 $1 | less; }
-t3() { tree -L 3 $1 | less; }
+# tree
+t1() { tree -L 1 $1 | less }
+t2() { tree -L 2 $1 | less }
+t3() { tree -L 3 $1 | less }
 
+# ls
 alias l1="ls -1"
 alias la="ls -a"
 alias ll="ls -la"
 alias lll="ls -l"
 
+# man
 m() { man $1 || $1 --help | less; }
 
 alias c="clear"

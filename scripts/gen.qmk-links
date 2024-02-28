@@ -1,11 +1,7 @@
 #!/bin/sh
 
-qmk_path=$HOME/qmk_firmware
+qmk_path=$HOME/dx/src/qmk_firmware
 qmk_user=alx-sychev
 
-link() {
-    ln -sf $1 -T $2
-}
-
-link $DOTFILES/qmk/keyboards/sofle $qmk_path/keyboards/sofle/keymaps/$qmk_user
+ln -sf $DOTFILES/qmk/sofle -T $qmk_path/keyboards/sofle/keymaps/$qmk_user
 

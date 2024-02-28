@@ -20,10 +20,10 @@ super + F1
     dbluez
 
 # bookmarks
-# super + n
-#     dbm pick
-# super + a
-#     dbm add
+super + shift + w
+    dbm open
+super + shift + b
+    dbm add
 
 # make screenshot
 Print

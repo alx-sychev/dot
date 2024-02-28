@@ -13,17 +13,17 @@ open_in_browser() {
 }
 
 edit() {
-    $TERMINAL -e $EDITOR $FILE_PATH
+	# setsid -f $TERMINAL -e $EDITOR $FILE_PATH >/dev/null 2>&1
+	$EDITOR $FILE_PATH
 }
 
 select_folder() {
-    cat $FILE_PATH | sed 's/.*#\s*//' | sed 's/\/.*$//' | uniq | \
+    cat $FILE_PATH | sed '/^#.*/d; /^$/d; s/.*#\s*//' | sed 's/\/.*$//' | uniq | \
         $DMENU_CMD -p "$PROMPT_SELECT_FOLDER"
 }
 
 open() {
-    local name=$(cat $FILE_PATH | sed 's/.*#\s*//' | $DMENU_CMD)
-
+    local name=$(cat $FILE_PATH | sed '/^#.*/d; /^$/d; s/.*#\s*//' | $DMENU_CMD)
     if ! [ -z $name ]; then
         local url=$(cat $FILE_PATH | grep "$name" | head -n 1 | sed 's/\s#.*//')
         open_in_browser $url

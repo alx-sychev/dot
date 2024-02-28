@@ -1,9 +1,15 @@
 #!/bin/sh
 
 dir="${1:-.}"
+file=$2
 
 cd $dir
-fzf --preview 'bat --style=numbers --color=always {}' \
-    --print0 | \
-    xargs -0 -r open
+
+if ! [ -z $file ]; then
+    open $file
+else
+    fzf --preview 'bat --style=numbers --color=always {}' \
+        --print0 | \
+        xargs -0 -r open
+fi
 

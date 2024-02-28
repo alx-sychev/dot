@@ -76,6 +76,9 @@ local function knv(...)
     kv(unpack({...}))
 end
 local function t(command) return "<cmd>Telescope " .. command .. " <CR>" end
+local function a(alias, command)
+    vim.api.nvim_create_user_command(alias, command, {})
+end
 
 -- @open vim config
 kn("<leader>C", ":e ~/.config/nvim/init.lua<CR>")
@@ -108,6 +111,7 @@ require("phpactor").setup {
         bin = vim.fn.stdpath("data") .. "/mason/packages/phpactor/bin/phpactor",
     },
 }
+a("Pnc", "PhpActor new_class")
 
 -- @harpoon
 local harpoon = require("harpoon")
