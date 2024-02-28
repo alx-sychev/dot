@@ -14,4 +14,6 @@ map D delete
 map gh cd ~
 map a push $touch<space>
 map w $setwp "$f"
+map ov $nvim "$f"
+map os $sxiv "$f"
 

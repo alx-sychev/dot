@@ -2,11 +2,14 @@
 
 cap=$(cat /sys/class/power_supply/BAT0/capacity)
 
-if [ $cap -lt 20 ]; then
-    if [ $cap -lt 5 ]; then
-        notify-send -u critical "Battery low" "$cap%"
-    else
-        notify-send -u normal "Battery low" "$cap%"
+while true; do
+    if [ $cap -lt 20 ]; then
+        if [ $cap -lt 5 ]; then
+            notify-send -u critical "Battery low" "$cap%"
+        else
+            notify-send -u normal "Battery low" "$cap%"
+        fi
     fi
-fi
+    sleep 600
+done
 

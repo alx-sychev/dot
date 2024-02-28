@@ -4,17 +4,20 @@ alias br="./backend run --dev &"
 alias bt="./backend test --modificators"
 alias be="./backend exec"
 
+# open and edit
 alias ae="$EDITOR $DOTFILES/config/zsh/aliases"
 alias fo="fzf-open"
 alias de="fzf-open $DOTFILES"
 alias ce="fzf-open $DOTFILES/config"
 alias se="fzf-open $DOTFILES/scripts"
-
 alias te="$EDITOR ~/dx/tasks"
 alias ns="newscript"
 
+# apps
 alias v="nvim"
+alias mu="ncmpcpp"
 
+# base utils
 alias md="mkdir -p"
 alias cp="cp -r"
 
@@ -36,6 +39,7 @@ alias lll="ls -l"
 # man
 m() { man $1 || $1 --help | less; }
 
+# clear and exit
 alias c="clear"
 alias x="exit"
 

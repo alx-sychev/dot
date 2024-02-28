@@ -1,13 +1,18 @@
 setxkbmap "us,ru" -option grp:alt_shift_toggle
+xmodmap ~/.Xmodmap
+
+configure-monitors
+xrdb -merge ~/.Xresources
+picom -b
+colwarm
+xwallpaper --center ~/.config/wall.png
+unclutter &
+
 sxhkd &
 slstatus &
 dunst &
-picom -b
-xrdb -merge ~/.Xresources
-xmodmap ~/.Xmodmap
-colwarm
+check-battery &
+
 wifi TP-Link_8A42
-xwallpaper --center ~/.config/wall.png
-configure-monitors
 
 exec dwm

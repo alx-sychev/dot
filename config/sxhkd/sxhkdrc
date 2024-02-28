@@ -1,31 +1,44 @@
-# exit X session
 super + shift + q
-    killall xinit
-
-# lock X session
+    killall xinit # exit X session
 super + shift + l
-    slock
+    slock # lock X session
 
 super + Return
     $TERMINAL
-
 super + w
     $BROWSER
-
 super + d
     dmenu_run
 
-# bluetooth menu
+XF86AudioMute
+    lmc toggle-mute
+XF86AudioLowerVolume
+    lmc down
+XF86AudioRaiseVolume
+    lmc up
+shift + XF86AudioMute
+    lmc toggle-pause
+shift + XF86AudioLowerVolume
+    lmc prev
+shift + XF86AudioRaiseVolume
+    lmc next
+XF86MonBrightnessDown
+    colcold
+XF86MonBrightnessUp
+    colwarm
+
 super + F1
-    dbluez
+    $TERMINAL -e pulsemixer # audio mixer
+super + shift + F1
+    $TERMINAL -e ncmpcpp # music player client
+super + F10
+    dbluez # dmenu bluetooth manager
 
-# bookmarks
 super + shift + w
-    dbm open
+    dbm open # open bookmark
 super + shift + b
-    dbm add
+    dbm add # add bookmark
 
-# make screenshot
 Print
-    sss -sc
+    sss -sc # make screenshot
 

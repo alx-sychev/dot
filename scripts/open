@@ -2,15 +2,13 @@
 
 # WIP
 
-f=$1
-
-mime="$(readlink -f $f | xargs file --mime-type -b)"
-
+f="$1"
+mime=$(readlink -f "$f" | xargs -I {} file --mime-type -b "{}")
 case $mime in
-	image/*) setsid -f sxiv $f >/dev/null 2>&1 ;;
-    text/*) $EDITOR $f;;
-	audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
-	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+	image/*) setsid -f sxiv "$f" >/dev/null 2>&1 ;;
+    text/*) $EDITOR "$f";;
+	audio/*|video/x-ms-asf) mpv --audio-display=no "$f" ;;
+	video/*) setsid -f mpv "$f" -quiet >/dev/null 2>&1 ;;
     *) $EDITOR $f;;
 esac
 

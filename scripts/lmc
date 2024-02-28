@@ -3,9 +3,11 @@
 # WIP
 
 case "$1" in
-    toggle) amixer sset Master toggle ;;
-    mute) amixer sset Master mute ;;
-    up) amixer sset Master 5%+ ;;
-    down) amixer sset Master 5%- ;;
+    toggle-mute) amixer sset Master toggle ;;
+    up) amixer sset Master 10%+ ;;
+    down) amixer sset Master 10%- ;;
+    toggle-pause) mpc toggle ;;
+    next) mpc next ;;
+    prev) mpc prev ;;
 esac
 
