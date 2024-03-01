@@ -82,6 +82,8 @@ end
 
 -- @open vim config
 kn("<leader>C", ":e ~/.config/nvim/init.lua<CR>")
+-- @open tasks
+kn("<leader>T", ":e ~/dx/tasks<CR>")
 
 -- @buffer navigaion
 -- stay on center during navigation
@@ -319,4 +321,4 @@ vim.opt.colorcolumn = "80"
 vim.opt.hlsearch = false
 vim.opt.signcolumn = 'no'
 vim.opt.termguicolors = true
-
+vim.opt.clipboard = "unnamedplus"

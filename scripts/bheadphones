@@ -1,0 +1,85 @@
+#!/bin/sh
+
+state_dir="$XDG_STATE_HOME/bheadphones"
+device_file="$state_dir/device"
+
+# Creates state directory and devices file
+init_state() {
+    ! [ -d $state_dir ] && mkdir -p $state_dir
+    ! [ -f $device_file ] && touch $device_file
+}
+
+# Gets device name from device file
+get_device() { cat $device_file; }
+
+# Sets device name to device file
+set_device() { echo "$1" > $device_file; }
+
+# Checks if a device is connected by device mac address
+device_connected() {
+    if bluetoothctl info "$1" | grep -F -q "Connected: yes"; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Gets mac address of device by it's name
+get_mac_by_name() {
+    echo $(bluetoothctl devices | grep "$1" | cut -d ' ' -f 2)
+}
+
+# Sends device not found notifaction
+device_not_found() {
+    notify-send "Device not found" \
+        "Ensure it set with bheadphones device"
+}
+
+# Sets current device name if argument passed,
+# else gets current device name
+subcmd_device() {
+    if [ -z "$1" ]; then
+        get_device
+    else
+        set_device "$1"
+    fi
+}
+
+# Connects to current device if not connected,
+# else disconnects
+subcmd_toggle() {
+    device_name=$(get_device)
+    device_mac=$(get_mac_by_name)
+    [ -z $device_mac ] && device_not_found && exit 1
+   
+    if device_connected "$device_mac"; then
+        bluetoothctl disconnect "$device_mac"
+        notify-send "Device disconnected" "$device_name"
+    else
+        bluetoothctl connect "$device_mac"
+        notify-send "Device connected" "$device_name"
+    fi
+}
+
+# Gets status of current device
+subcmd_status() {
+    device_name=$(get_device)
+    device_mac=$(get_mac_by_name)
+    [ -z $device_mac ] && device_not_found && exit 1
+
+    if device_connected "$device_mac"; then
+        echo "Connected"
+    else
+        echo "Disconnected"
+    fi
+}
+
+init_state
+
+case "$1" in
+    device) subcmd_device "$2";;
+    toggle) subcmd_toggle;;
+    status) subcmd_status;;
+    *) echo "Invalid subcommand $1"
+esac
+

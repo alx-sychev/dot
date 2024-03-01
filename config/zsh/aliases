@@ -13,9 +13,11 @@ alias se="fzf-open $DOTFILES/scripts"
 alias te="$EDITOR ~/dx/tasks"
 alias ns="newscript"
 
-# apps
+# programs
 alias v="nvim"
 alias mu="ncmpcpp"
+alias p="sudo pacman"
+alias wthr="weather"
 
 # base utils
 alias md="mkdir -p"

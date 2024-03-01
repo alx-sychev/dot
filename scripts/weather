@@ -1,4 +1,5 @@
 #!/bin/sh
 
-curl wttr.in
+location=Владимир
+curl "wttr.in/$location?0"
 

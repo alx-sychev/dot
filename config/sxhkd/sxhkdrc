@@ -32,6 +32,8 @@ super + F1
 super + shift + F1
     $TERMINAL -e ncmpcpp # music player client
 super + F10
+    bheadphones toggle # toggle bluetooth headphones connection
+super + shift + F10
     dbluez # dmenu bluetooth manager
 
 super + shift + w

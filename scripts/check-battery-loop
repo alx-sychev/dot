@@ -1,0 +1,10 @@
+#!/bin/sh
+
+sleep_time=180
+
+while true; do
+    check-battery
+    sleep $sleep_time
+done
+
+

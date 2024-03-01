@@ -9,12 +9,11 @@ PROMPT_SELECT_FOLDER="Select folder (empty for root): "
 PROMPT_ENTER_NAME="Enter name: "
 
 open_in_browser() {
-	setsid -f $BROWSER $1 >/dev/null 2>&1
+    setsid -f $BROWSER $1 >/dev/null 2>&1
 }
 
 edit() {
-	# setsid -f $TERMINAL -e $EDITOR $FILE_PATH >/dev/null 2>&1
-	$EDITOR $FILE_PATH
+    $EDITOR $FILE_PATH
 }
 
 select_folder() {
@@ -66,14 +65,10 @@ init_storage() {
 init_storage
 
 case "$1" in
-edit) edit;;
-print) cat $FILE_PATH;;
-open) open;;
-add) add;;
-*) 
-$(echo "open
-add
-edit
-print" | $DMENU_CMD);;
+    edit) edit;;
+    print) cat $FILE_PATH;;
+    open) open;;
+    add) add;;
+    *) $(printf "open\nadd\nedit\nprint" | $DMENU_CMD);;
 esac
 

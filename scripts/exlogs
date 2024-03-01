@@ -1,9 +1,0 @@
-#!/bin/sh
-
-default_prefix=alx
-default_namespace=exam
-
-prefix=${1:-$default_prefix}
-namespace=${2:-$default_namespace}
-kubectl get pods -n "$namespace" | grep "$prefix" | fzf | awk '{ print $1 }' | xargs -r kubectl logs -n "$namespace"
-

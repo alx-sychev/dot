@@ -1,5 +1,5 @@
 export DOTFILES=$HOME/dt
-export PATH=$PATH:$DOTFILES/scripts
+export PATH=$PATH:$DOTFILES/scripts:$DOTFILES/scripts/personal
 
 export EDITOR=nvim
 export TERMINAL=st

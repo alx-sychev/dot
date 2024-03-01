@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# WIP
-
 case "$1" in
     toggle-mute) amixer sset Master toggle ;;
     up) amixer sset Master 10%+ ;;

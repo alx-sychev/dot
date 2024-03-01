@@ -1,15 +1,17 @@
 #!/bin/sh
 
 cap=$(cat /sys/class/power_supply/BAT0/capacity)
+status=$(cat /sys/class/power_supply/BAT0/status)
 
-while true; do
-    if [ $cap -lt 20 ]; then
-        if [ $cap -lt 5 ]; then
-            notify-send -u critical "Battery low" "$cap%"
-        else
-            notify-send -u normal "Battery low" "$cap%"
-        fi
+if [ $status = Charging ]; then
+    exit 0
+fi
+
+if [ $cap -lt 20 ]; then
+    if [ $cap -lt 10 ]; then
+        notify-send -u critical "Battery low" "$cap%"
+    else
+        notify-send -u normal "Battery low" "$cap%"
     fi
-    sleep 600
-done
+fi
 

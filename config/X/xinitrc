@@ -5,14 +5,14 @@ configure-monitors
 xrdb -merge ~/.Xresources
 picom -b
 colwarm
-xwallpaper --center ~/.config/wall.png
+xwallpaper --maximize ~/.config/wall.png
 unclutter &
 
 sxhkd &
 slstatus &
 dunst &
-check-battery &
+check-battery-loop &
 
-wifi TP-Link_8A42
+dnetwork first
 
 exec dwm

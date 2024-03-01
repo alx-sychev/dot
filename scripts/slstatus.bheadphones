@@ -1,0 +1,10 @@
+#!/bin/sh
+
+status=$(bheadphones status)
+
+if [ $status = 'Connected' ]; then
+    echo Con
+else
+    echo Dis
+fi
+

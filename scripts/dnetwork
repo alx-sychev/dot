@@ -1,0 +1,59 @@
+#!/bin/sh
+
+state_dir="$XDG_STATE_HOME/dnetwork"
+networks_file="$state_dir/networks"
+device=wlan0
+dmenu_cmd="dmenu -l 20"
+
+init_state() {
+    ! [ -d $state_dir ] && mkdir -p $state_dir
+    ! [ -f $networks_file ] && touch $networks_file
+}
+
+scan() { iwctl station $device scan; }
+
+edit() { $EDITOR $networks_file; }
+
+select() {
+    scan
+    alias=$(cat "$networks_file" | awk '{ print $1 }' | $dmenu_cmd)
+    ssid=$(grep "$alias" "$networks_file" | awk '{ print $2 }')
+    msg="$(iwctl station $device connect "$ssid")"
+
+    if [ $? = 0 ]; then
+        notify-send "WI-FI connected" "$ssid"
+    else
+        notify-send "Connection failed" "$msg"
+    fi
+}
+
+first() {
+    scan
+    connected=false
+    
+    while IFS= read -r line; do
+        ssid=$(echo "$line" | awk '{ print $2 }')
+        msg="$(iwctl station $device connect "$ssid")"
+
+        if [ $? -eq 0 ]; then
+            connected=true
+            notify-send "WI-FI connected" "$ssid"
+            break
+        fi
+    done < "$networks_file"
+
+    if [ ! $connected ]; then
+        notify-send "Connection failed" \
+            "No available networks in networks file"
+    fi
+}
+
+init_state
+
+case "$1" in
+    select) select;;
+    first) first;;
+    edit) edit;;
+    *) echo "Invalid subcommand $1";;
+esac
+
