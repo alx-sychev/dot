@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# WIP
+
+mountpoint="$HOME/.mnt-phone"
+dir="$mountpoint/Внутренняя память"
+
+mount() {
+    mkdir "$mountpoint" && jmtpfs "$mountpoint"
+}
+
+umount() {
+    umount "$mountpoint" && rm -r "$mountpoint"
+}
+
+openlf() {
+    mount && lf "$dir" && unmount
+}
+
+case "$1" in
+    mount) mount ;;
+    umount) umount ;;
+    go) cd "$dir" ;;
+    lf) openlf ;;
+    *) echo "Invalid subcommand: $1"
+esac
+

@@ -1,0 +1,50 @@
+#!python
+
+import sys
+import requests
+from bs4 import BeautifulSoup
+
+usage = 'Usage: scrap-azlyrics <artist> <song>'
+
+def main():
+    if len(sys.argv) != 3:
+        print(usage)
+        sys.exit(1)
+    lyrics = fetch_and_parse(sys.argv[1], sys.argv[2])
+    print(lyrics)
+
+def fetch_and_parse(artist, song):
+    url = build_url(artist, song)
+    response = fetch(url)
+    return parse(response.content)
+
+def build_url(artist, song):
+    base = 'https://www.azlyrics.com/lyrics'
+    artist = artist.lower().replace(" ", "")
+    song = song.lower().replace(" ", "")
+    return f'{base}/{artist}/{song}.html'
+
+def fetch(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response
+    else:
+        print('Failed to fetch. Status code:', response.status_code)
+        exit(1)
+
+def remove_empty_lines_before_first_non_empty(text):
+    lines = text.splitlines()
+    first_non_empty_index = next((i for i, line in enumerate(lines) if line.strip()), len(lines))
+    result = '\n'.join(lines[first_non_empty_index:])
+    return result
+
+def parse(content):
+    soup = BeautifulSoup(content, 'html.parser')
+    outer = soup.find_all('div', class_='col-xs-12 col-lg-8 text-center')[0]
+    inner = outer.find_all('div', class_='')[0]
+    lyrics = inner.get_text()
+    return remove_empty_lines_before_first_non_empty(lyrics)
+
+if __name__ == "__main__":
+    main()
+

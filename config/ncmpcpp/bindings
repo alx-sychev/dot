@@ -19,8 +19,8 @@ def_key "s"
 #     change_browse_mode
 def_key "P"
     show_playlist
-def_key "ctrl-p"
-    show_playlist_editor
+# def_key "ctrl-p"
+#     show_playlist_editor
 
 # list navigation
 def_key "j"
@@ -83,3 +83,5 @@ def_key "U"
 #     run_action
 def_key "i"
     show_song_info
+def_key "L"
+    show_lyrics

@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# WIP
-
 f="$1"
 mime=$(readlink -f "$f" | xargs -I {} file --mime-type -b "{}")
 case $mime in
@@ -9,6 +7,7 @@ case $mime in
     text/*) $EDITOR "$f";;
 	audio/*|video/x-ms-asf) mpv --audio-display=no "$f" ;;
 	video/*) setsid -f mpv "$f" -quiet >/dev/null 2>&1 ;;
-    *) $EDITOR $f;;
+	application/pdf) setsid -f zathura "$f" ;;
+    *) $EDITOR "$f";;
 esac
 

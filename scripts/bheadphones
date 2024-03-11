@@ -3,6 +3,8 @@
 state_dir="$XDG_STATE_HOME/bheadphones"
 device_file="$state_dir/device"
 
+# WIP
+
 # Creates state directory and devices file
 init_state() {
     ! [ -d $state_dir ] && mkdir -p $state_dir
@@ -26,7 +28,7 @@ device_connected() {
 
 # Gets mac address of device by it's name
 get_mac_by_name() {
-    echo $(bluetoothctl devices | grep "$1" | cut -d ' ' -f 2)
+    bluetoothctl devices | grep "$1" | cut -d ' ' -f 2
 }
 
 # Sends device not found notifaction
@@ -54,9 +56,11 @@ subcmd_toggle() {
    
     if device_connected "$device_mac"; then
         bluetoothctl disconnect "$device_mac"
+        # todo if error
         notify-send "Device disconnected" "$device_name"
     else
         bluetoothctl connect "$device_mac"
+        # todo if error
         notify-send "Device connected" "$device_name"
     fi
 }

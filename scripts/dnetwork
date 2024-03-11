@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# WIP
+
 state_dir="$XDG_STATE_HOME/dnetwork"
 networks_file="$state_dir/networks"
 device=wlan0
@@ -17,6 +19,7 @@ edit() { $EDITOR $networks_file; }
 select() {
     scan
     alias=$(cat "$networks_file" | awk '{ print $1 }' | $dmenu_cmd)
+    # todo what if i press esc
     ssid=$(grep "$alias" "$networks_file" | awk '{ print $2 }')
     msg="$(iwctl station $device connect "$ssid")"
 

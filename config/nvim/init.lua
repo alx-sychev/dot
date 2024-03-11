@@ -164,7 +164,7 @@ require('neo-tree').setup {
 
 -- @files navigation and search
 -- directory view
-kn("<leader>fd", ":Neotree toggle<cr>", {})
+kn("<leader>fd", ":Neotree toggle<cr>", { silent = true })
 -- all not ignored files
 kn("<leader>ff", t("git_files"), {})
 -- recent files
@@ -173,7 +173,7 @@ kn("<leader>fr", t("oldfiles"), {})
 kn("<leader>g", t("live_grep"), {})
 -- edited files
 -- kn("<leader>fe", t("git_status"))
-kn("<leader>fe", ":Neotree toggle source=git_status<cr>")
+kn("<leader>fe", ":Neotree toggle source=git_status<cr>", { silent = true })
 -- open last closed file
 kn("<leader><leader>", ':e#\n', { silent = true })
 

@@ -1,5 +1,5 @@
 #!/bin/sh
 
-location=Владимир
+location=Vladimir
 curl "wttr.in/$location?0"
 

@@ -6,14 +6,19 @@ cmd open ${{
     $OPENER "$f"
 }}
 
-cmd md ${{
-    mkdir -p "$1"
+cmd mime !{{
+    file --mime-type -b "$f"
 }}
 
 map D delete
-map gh cd ~
 map a push $touch<space>
+map A push $mkdir<space>-p<space>
 map w $setwp "$f"
+
 map ov $nvim "$f"
 map os $sxiv -r "$f"
+map ob $$BROWSER "$f"
+
+map M
+source "~/.config/lf/shortcutrc"
 

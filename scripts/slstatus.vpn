@@ -1,0 +1,10 @@
+#!/bin/sh
+
+status=$(vpn status | jq -r '.[0].run_state')
+
+if [ $status = Active ]; then
+    echo Con
+else
+    echo Dis
+fi
+

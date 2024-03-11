@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# WIP
+
+track_info() {
+    mediainfo "$1" --Output=JSON \
+        | jq -r '.media.track[0] | .Performer, .Title'
+}
+
+list_track_info() {
+    find "$1" -type f -name *.mp3 | fzf | { while read line; do
+        track_info "$line"
+    done }
+}
+
+list_track_info "$1"
+

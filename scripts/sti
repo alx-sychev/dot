@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# sti means simple tmux initializer
+# WIP
+
+list_session_names() {
+    tmux list-sessions | cut - -d ':' -f1
+}
+
+session_exist() {
+    tmux has-session -t "$1"
+    if [ $? = 0 ]; then
+        echo y
+        return 1
+    else
+        echo n
+        return 0
+    fi
+}
+
+name=$1
+dir=$2
+wins="${@:3}"
+
+# echo $wins
+echo $3
+echo $4
+echo $5
+
+echo $(session_exist test)
+echo $(session_exist 'test test')
+

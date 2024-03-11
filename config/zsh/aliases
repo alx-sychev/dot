@@ -12,12 +12,14 @@ alias ce="fzf-open $DOTFILES/config"
 alias se="fzf-open $DOTFILES/scripts"
 alias te="$EDITOR ~/dx/tasks"
 alias ns="newscript"
+alias bmde="$EDITOR $XDG_STATE_HOME/bmdirs"
 
 # programs
 alias v="nvim"
 alias mu="ncmpcpp"
 alias p="sudo pacman"
-alias wthr="weather"
+alias wt="weather"
+alias tremc="tremc -X"
 
 # base utils
 alias md="mkdir -p"

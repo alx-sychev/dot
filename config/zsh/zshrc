@@ -1,6 +1,6 @@
 export ZSH="$HOME/.oh-my-zsh"
 
-# prompt customization
+# Prompt customization
 autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b '
@@ -8,6 +8,7 @@ setopt PROMPT_SUBST
 NEWLINE=$'\n'
 PROMPT='%F{yellow}%(1j.jobs: %j .)%f%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f${NEWLINE}> '
 
+# Plugins
 plugins=(
   git
   asdf
@@ -22,6 +23,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# History
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.local/state/zsh/history
@@ -41,7 +43,24 @@ source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 bindkey -s "^[v" "fzf-open^M"
 
-alias lf=lfub
+# Edit command
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^e" edit-command-line
+bindkey -M vicmd '^e' edit-command-line
+
+lfcd () {
+    tmp="$(mktemp -uq)"
+    trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
+    lfub -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^f' '^ulfcd\n'
+alias lf=lfcd
+bindkey -s '^g' 'source fzf-go^M'
 
 source "$DOTFILES/config/zsh/aliases"
 

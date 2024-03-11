@@ -1,26 +1,10 @@
 #!/bin/sh
 
-get_first() {
-    pritunl-client list -j | jq '.[0].id' -r
-}
-
-status() {
-    pritunl-client list -j | jq '.'
-}
-
-up() {
-    pritunl-client start "$(get_first)"
-}
-
-down() {
-    pritunl-client stop "$(get_first)"
-}
-
-slstatus() {
-    status | jq -r '.[0].run_state'
-}
+get_first() { pritunl-client list -j | jq '.[0].id' -r; }
+status()    { pritunl-client list -j | jq '.'; }
+up()        { pritunl-client start "$(get_first)"; }
+down()      { pritunl-client stop "$(get_first)"; }
 
 subcmd=${1:-status}
-
 $subcmd
 

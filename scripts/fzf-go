@@ -1,0 +1,8 @@
+#!/bin/bash
+
+chosen=$(sed '/^#.*/d; /^$/d' $XDG_STATE_HOME/bmdirs \
+    | fzf +i | awk '{ print $2 }')
+chosen_dir="${chosen//\$HOME/$HOME}"
+cd "$chosen_dir"
+export PWD=$(pwd)
+

@@ -14,5 +14,6 @@ dunst &
 check-battery-loop &
 
 dnetwork first
+mpd
 
 exec dwm
