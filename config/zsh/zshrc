@@ -58,9 +58,8 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-bindkey -s '^f' '^ulfcd\n'
 alias lf=lfcd
-bindkey -s '^g' 'source fzf-go^M'
+alias g="source fzf-go"
 
 source "$DOTFILES/config/zsh/aliases"
 

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+curl -s "$1" | pup 'link[type="application/rss+xml"] attr{href}'

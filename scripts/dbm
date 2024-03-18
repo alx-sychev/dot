@@ -9,8 +9,9 @@ PROMPT_SELECT_FOLDER="Select folder (empty for root): "
 PROMPT_ENTER_NAME="Enter name: "
 
 open_in_browser() {
-    echo $BROWSER
-    setsid -f $BROWSER $1 >/dev/null 2>&1
+    qute_open_url "$1"
+    # echo $BROWSER
+    # setsid -f $BROWSER $1 >/dev/null 2>&1
 }
 
 edit() {

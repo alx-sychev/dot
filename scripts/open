@@ -8,6 +8,7 @@ case $mime in
 	audio/*|video/x-ms-asf) mpv --audio-display=no "$f" ;;
 	video/*) setsid -f mpv "$f" -quiet >/dev/null 2>&1 ;;
 	application/pdf) setsid -f zathura "$f" ;;
+	application/x-bittorrent) open-torrent "$f" ;;
     *) $EDITOR "$f";;
 esac
 

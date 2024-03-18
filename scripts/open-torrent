@@ -1,0 +1,29 @@
+#!/bin/sh
+
+bmdirs="${XDG_STATE_HOME:-$HOME/.local/state}/bmdirs"
+incomplete_dir="$HOME/dl/trnt-inc/"
+
+# Check daemon is running
+if ! pgrep -fx transmission-daemon > /dev/null; then
+    notify-send -u critical "Unable to add torrent" \
+        "Transmission daemon is not running"
+    exit
+fi
+
+# Choose dest dir
+home_escaped=$(echo $HOME | sed 's/\//\\\//g')
+dest=$(sed '/^#.*/d; /^$/d' $bmdirs \
+    | fzf +i --prompt "Choose torrent destination" | awk '{ print $2 }' \
+    | sed "s/\$HOME/$home_escaped/")
+if [ -z "$dest" ]; then
+    exit
+fi
+
+# Add torrent
+msg=$(transmission-remote -a "$1" -w "$dest" -c "$incomplete_dir")
+if ! [ $? -eq 0 ]; then
+    notify-send -u critical "Unable to add torrent" "$msg"
+    exit
+fi
+notify-send "Torrent added" "$(basename "$1")\nDestination: $dest"
+

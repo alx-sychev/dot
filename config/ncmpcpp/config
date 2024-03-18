@@ -1,5 +1,6 @@
 # vim: filetype=conf
 
+mpd_music_dir = "~/mu/audio"
 ncmpcpp_directory = "~/.config/ncmpcpp"
 lyrics_directory = "~/mu/lyrics"
 message_delay_time = "1"

@@ -1,4 +1,4 @@
 #!/bin/sh
 
-redshift -P -O 5500
+redshift -P -O 5000
 
